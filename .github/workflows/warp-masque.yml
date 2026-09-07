@@ -1,6 +1,9 @@
 name: 生成 WARP MASQUE 配置
 
 on:
+  schedule:
+    - cron: '0 0 * * 0'
+  push:
   workflow_dispatch:
     inputs:
       device_name:
@@ -78,7 +81,7 @@ jobs:
           ls -l dist
 
       - name: 提交回仓库
-        if: inputs.commit
+        if: ${{ inputs.commit != false }}
         run: |
           set -euo pipefail
           mkdir -p configs
